@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renderizando Listas</title>
+</head>
+<body>
+    <div id="app">
+        <form @submit.prevent="guardarTarea">
+            <input type="text" placeholder="agregar tarea" v-model="nuevaTarea">
+            <input type="submit" value="Guardar">
+        </form>
+        <hr>
+        <input type="range" v-model="tiempo">{{tiempo}}
+        <br>
+        <input type="search" v-model="busqueda" placeholder="Buscar tarea">
+        <hr>
+        <p v-for="(valor, propiedad) in usuario"> {{ propiedad }} : {{ valor }}</p>
+        <hr>
+        <ul>
+            <li v-for="(tarea, i) in filtroTareas">{{ i }} - {{ tarea.nombre }} - {{ tarea.tiempo }}</li>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        const app = new Vue({
+             el: '#app',
+             data: {
+                 busqueda: '',
+                 tiempo: 100,
+                 nuevaTarea : '',
+                 usuario:{
+                    username: 'Fenner',
+                    role: 'admin'
+                 },
+                 tareas: [
+                     {nombre: 'tarea 1: comprar', tiempo: 3},
+                     {nombre: 'tarea 2 : vender', tiempo: 2},
+                     {nombre: 'tarea 3: lavar', tiempo: 30},
+                     {nombre: 'tarea 4 : lavar de nuevo', tiempo: 32},
+                     {nombre: 'tarea 5: loza', tiempo: 13},
+                     {nombre: 'tarea 6: ropa sucia', tiempo: 33},
+                     {nombre: 'tarea 7: camino', tiempo: 63}
+                 ]
+             },
+             computed:{
+                 filtroTareas(){
+                     return this.tareas.filter( tarea => tarea.tiempo <= this.tiempo && tarea.nombre.includes(this.busqueda) )
+                 }
+             },
+             methods: {
+                 guardarTarea(){
+                    this.tareas.unshift({
+                        nombre: this.nuevaTarea,
+                        tiempo: Math.floor(Math.random() * 100)
+                    })
+                    this.nuevaTarea = ''
+                 }
+             },
+         })
+    </script>
+</body>
+</html>

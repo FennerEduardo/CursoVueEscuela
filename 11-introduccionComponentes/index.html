@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducción a Componentes</title>
+</head>
+
+<body>
+    <div id="app">
+        <post v-for="post in posts" :post="post"></post>
+        <!-- <article class="post" v-for="post in posts">
+            <h2 class="post__titulo"> {{ post.titulo }}</h2>
+            <p class="post__contenido">{{ post.contenido }}</p>
+        </article> -->
+
+        <pre>{{ $data }}</pre>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        // Crear el componente
+        Vue.component('post', {
+            props: ['post'],
+            template: `<article class="post">
+                    <h2 class="post__titulo"> {{ post.titulo }}</h2>
+                    <p class="post__contenido">{{ post.contenido }}</p>
+                </article>`
+        })
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+               posts: [
+                   {
+                       titulo: 'Titulo 1',
+                       contenido: 'Lorem ipsum'
+                   },
+                   {
+                       titulo: 'Titulo 2',
+                       contenido: 'Lorem ipsum 2'
+                   },
+                   {
+                       titulo: 'Titulo 3',
+                       contenido: 'Lorem ipsum 3'
+                   }
+               ]
+            }
+        })
+    </script>
+</body>
+
+</html>

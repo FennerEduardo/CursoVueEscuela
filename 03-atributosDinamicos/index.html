@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atributos dinámicos</title>
+</head>
+<body>
+    
+    <div id="app">
+        <input type="text" v-model="enlace">
+        <br>
+        <a :href="enlace">Página: {{ enlace }}</a>
+        <hr>
+        <input type="range" v-model="width">Ancho
+        <br>
+        <input type="range" v-model="height">Alto
+        <br>
+        <br>
+        {{ urlCompleta }}
+        <br>
+        <br>
+        <img :src="urlCompleta" alt="">
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data:{
+                enlace: 'https://evol.com.co',
+                baseUrl: 'https://placekitten.com', 
+                width: 40,
+                height: 100
+            },
+            computed:{
+                urlCompleta(){
+                    return `${this.baseUrl}/${this.width * 3}/${this.height * 3}`
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Qué es VueJs?</title>
+</head>
+<body>
+    <div id="app">
+        <form action="" @submit.prevent="guardarTarea">
+            <input type="text" v-model="nuevaTarea">
+            <input type="submit" value="Guardar">
+        </form>
+        <hr>
+        <ul>
+            <li v-for="tarea in tareas">{{ tarea }}</li>
+        </ul>
+        <hr>
+        <!-- mostrar la data del modelo  -->
+        <pre>{{ $data }}</pre>
+    </div>
+    <!-- Se agrega vue usando la CDN en modo desarrollo -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <script>
+        // se crea una nueva instancia de Vue
+        new Vue({
+            el: '#app', //elemento sobre el cual está Vue
+            data: {
+                // la data se conoce como el modelo
+                nuevaTarea: '',
+                tareas: []
+            },
+            methods: {
+                guardarTarea(){
+                    this.tareas.push(this.nuevaTarea)
+                    this.nuevaTarea = ''
+                }
+            },
+        })
+    </script>
+</body>
+</html>

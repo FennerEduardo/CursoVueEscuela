@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propiedades Dinámicas</title>
+    <style>
+        .boton {
+            background-color: purple;
+            color: white;
+            padding: 10px 30px;
+            display: block;
+            border-radius: 0 0 10px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 1px goldenrod;
+            font-family: sans-serif;
+            text-align: center;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <div id="app">
+
+        <boton 
+            v-for="boton in botones" 
+            :color="boton.color" 
+            :enlace="boton.enlace" 
+            :anchor-text="boton.anchorText" 
+        />
+        <!-- <boton 
+            color="blue"
+            enlace="https://evol.com.co" anchor-text="Evol"
+        ></boton>  
+        <boton 
+            color="red"
+            enlace="https://evol.com.co" anchor-text="Evol 2"
+        ></boton>  
+        <boton 
+            color="green"
+            enlace="https://evol.com.co" anchor-text="Evol 3"
+        ></boton>  
+        <boton 
+            color="black"
+            anchor-text="Evol 4"
+        ></boton>   -->
+       
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        Vue.component('boton', {
+            // props: ["color", "enlace", "anchorText"],
+            props: {
+                color: String,
+                enlace: {
+                    type: String,
+                    default: 'https://evol.com.co'
+                },
+                anchorText: String
+            },
+            template: `<a class="boton" :style="'background-color:' + color " :href="enlace">{{anchorText}}</a>`            
+        })
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                botones: [
+                    {enlace: "http://www.wmedia.es", anchorText: "Wmedia", color: "red"},
+                    {enlace: "http://www.escuelavue.es", anchorText: "Escuela Vue", color: "blue"},
+                    {enlace: "http://www.vuejs.org", anchorText: "Vue.js", color: "purple"},
+                ]
+            },
+            computed: {
+                
+            }
+        })
+    </script>
+</body>
+
+</html>

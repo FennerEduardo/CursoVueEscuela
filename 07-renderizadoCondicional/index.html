@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renderizado Condicional</title>
+    <style>
+        form{
+            width: 400px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+        label, input, select, textarea{
+            display: block;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <form>
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre">
+
+            <label for="apellidos">Apellidos</label>
+            <input type="text" id="apellidos">
+
+            <label for="direccion">Dirección de Envío</label>
+            <select name="" id="direccion" v-model="direccion">
+                <option value="misma">Misma dirección que facturación</option>
+                <option value="nueva">Introducción nueva dirección</option>
+            </select>
+            <template v-if="direccion === 'nueva'">
+                <label for="nueva-direccion">Nueva Dirección</label>
+                <textarea id="nueva-direccion"></textarea>
+            </template>
+
+            <div>
+                <input type="checkbox" v-model="check">He leído la política de privacidad
+            </div>
+            <input v-if="check" type="submit" value="Enviar">
+            <p v-else>Debes marcar el check para poder enviar el formulario</p>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                direccion: '',
+                check: false
+            }
+        })
+    </script>
+</body>
+
+</html>
