@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usando v-model en los componentes</title>
+
+</head>
+
+<body>
+    <div id="app">
+        <!-- <input v-model="busqueda" type="text" /> -->
+
+        <base-input v-model="busqueda">
+            Búsqueda
+        </base-input>
+
+        <base-input v-model="nombre" type="password">
+            Nombre
+        </base-input>
+
+        <base-input v-model="correo" type="email">
+            Correo
+        </base-input>
+
+        <!-- <input :value="busqueda" @input="busqueda = $event.target.value " type="text" /> -->
+        <pre>{{ $data }}</pre>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
+
+    <script>
+        Vue.component('base-input',{
+            props: ['value', 'type'],
+            template: `
+            <div style="margin-bottom: 20px">
+                <label :for="id" style="display: block">
+                    <slot></slot>
+                </label>
+                <input 
+                    :type="type"
+                    :value="value"
+                    @input="$emit('input', $event.target.value)"
+                    :id="id"
+                >
+            </div>
+            `,
+            data() {
+                return {
+                    id: `input-${Math.floor(Math.random() * 10) + 1}`
+                    
+                }
+            }
+        })
+
+        new Vue({
+            el: '#app',
+            data: {
+                busqueda: '',
+                nombre: '',
+                correo: ''
+            }
+        })
+        Vue.config.devtools = true;
+    </script>
+</body>
+
+</html>
